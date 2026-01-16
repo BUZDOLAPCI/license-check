@@ -103,17 +103,26 @@ export function createServer(): Server {
 }
 
 /**
+ * Create a standalone MCP server instance
+ * This is useful for HTTP transport where each session needs its own server
+ */
+export function createStandaloneServer(): Server {
+  return createServer();
+}
+
+/**
  * Start the MCP server with the specified transport
  */
 export async function startServer(config: ServerConfig): Promise<void> {
-  const server = createServer();
-
   console.error(`[${SERVER_NAME}] Starting server v${SERVER_VERSION}`);
   console.error(`[${SERVER_NAME}] Transport: ${config.transport}`);
 
   if (config.transport === 'http') {
-    await createHttpTransport(server, config);
+    // HTTP transport uses factory function to create server per session
+    await createHttpTransport(createStandaloneServer, config);
   } else {
+    // Stdio transport uses single server instance
+    const server = createServer();
     await createStdioTransport(server, config);
   }
 

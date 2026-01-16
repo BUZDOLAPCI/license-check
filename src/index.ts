@@ -1,6 +1,6 @@
 // Main entry point - exports all public APIs
 
-export { createServer, startServer } from './server.js';
+export { createServer, createStandaloneServer, startServer } from './server.js';
 export { loadConfig, DEFAULT_CONFIG } from './config.js';
 export { detectLicenses, checkCompatibility, generateNotice, toolDefinitions } from './tools/index.js';
 export { createStdioTransport, createHttpTransport } from './transport/index.js';
