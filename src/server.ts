@@ -5,7 +5,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import { toolDefinitions } from './tools/index.js';
-import { createStdioTransport, createHttpTransport } from './transport/index.js';
+import { createHttpTransport } from './transport/index.js';
 import type { ServerConfig } from './types.js';
 
 const SERVER_NAME = 'license-check';
@@ -111,20 +111,14 @@ export function createStandaloneServer(): Server {
 }
 
 /**
- * Start the MCP server with the specified transport
+ * Start the MCP server with HTTP transport
  */
 export async function startServer(config: ServerConfig): Promise<void> {
   console.error(`[${SERVER_NAME}] Starting server v${SERVER_VERSION}`);
-  console.error(`[${SERVER_NAME}] Transport: ${config.transport}`);
+  console.error(`[${SERVER_NAME}] Transport: HTTP`);
 
-  if (config.transport === 'http') {
-    // HTTP transport uses factory function to create server per session
-    await createHttpTransport(createStandaloneServer, config);
-  } else {
-    // Stdio transport uses single server instance
-    const server = createServer();
-    await createStdioTransport(server, config);
-  }
+  // HTTP transport uses factory function to create server per session
+  await createHttpTransport(createStandaloneServer, config);
 
   console.error(`[${SERVER_NAME}] Server started successfully`);
 }

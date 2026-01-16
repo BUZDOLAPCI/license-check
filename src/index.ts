@@ -3,7 +3,7 @@
 export { createServer, createStandaloneServer, startServer } from './server.js';
 export { loadConfig, DEFAULT_CONFIG } from './config.js';
 export { detectLicenses, checkCompatibility, generateNotice, toolDefinitions } from './tools/index.js';
-export { createStdioTransport, createHttpTransport } from './transport/index.js';
+export { createHttpTransport } from './transport/index.js';
 
 // Re-export types
 export type {
@@ -35,7 +35,6 @@ export type {
 
   // Server types
   ServerConfig,
-  TransportType,
   ToolDefinition,
 } from './types.js';
 

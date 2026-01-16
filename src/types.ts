@@ -187,12 +187,9 @@ export const GenerateNoticeInputSchema = z.object({
 // Server Configuration Types
 // =============================================================================
 
-export type TransportType = 'stdio' | 'http';
-
 export interface ServerConfig {
-  transport: TransportType;
-  port?: number;
-  host?: string;
+  port: number;
+  host: string;
   logLevel?: 'debug' | 'info' | 'warn' | 'error';
 }
 

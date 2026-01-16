@@ -1,10 +1,9 @@
-import type { ServerConfig, TransportType } from './types.js';
+import type { ServerConfig } from './types.js';
 
 /**
  * Default server configuration
  */
 export const DEFAULT_CONFIG: ServerConfig = {
-  transport: 'http',
   port: 8080,
   host: '127.0.0.1',
   logLevel: 'info',
@@ -14,7 +13,6 @@ export const DEFAULT_CONFIG: ServerConfig = {
  * Load configuration from environment variables
  */
 export function loadConfig(overrides?: Partial<ServerConfig>): ServerConfig {
-  const transport = (process.env['LICENSE_CHECK_TRANSPORT'] as TransportType) || DEFAULT_CONFIG.transport;
   const port = process.env['LICENSE_CHECK_PORT']
     ? parseInt(process.env['LICENSE_CHECK_PORT'], 10)
     : DEFAULT_CONFIG.port;
@@ -22,7 +20,6 @@ export function loadConfig(overrides?: Partial<ServerConfig>): ServerConfig {
   const logLevel = (process.env['LICENSE_CHECK_LOG_LEVEL'] as ServerConfig['logLevel']) || DEFAULT_CONFIG.logLevel;
 
   return {
-    transport,
     port,
     host,
     logLevel,
