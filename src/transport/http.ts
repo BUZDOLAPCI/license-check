@@ -24,7 +24,7 @@ export async function createHttpTransport(
   createServerFn: () => Server,
   config: ServerConfig
 ): Promise<void> {
-  const port = config.port ?? 3000;
+  const port = config.port ?? 8080;
   const host = config.host ?? '127.0.0.1';
 
   const httpServer = createHttpServer();
