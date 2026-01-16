@@ -34,6 +34,8 @@ function parseArgs(): { transport?: TransportType; port?: number; host?: string 
     } else if (arg === '--host' || arg === '-h') {
       result.host = nextArg;
       i++;
+    } else if (arg === '--stdio') {
+      result.transport = 'stdio';
     } else if (arg === '--help') {
       printHelp();
       process.exit(0);
@@ -57,9 +59,10 @@ Usage:
   license-check [options]
 
 Options:
-  -t, --transport <type>  Transport type: stdio (default) or http
-  -p, --port <port>       HTTP port (default: 3000, only for http transport)
+  -t, --transport <type>  Transport type: http (default) or stdio
+  -p, --port <port>       HTTP port (default: 8080, only for http transport)
   -h, --host <host>       HTTP host (default: 127.0.0.1, only for http transport)
+  --stdio                 Shortcut for --transport stdio
   --help                  Show this help message
   -v, --version           Show version number
 
@@ -70,14 +73,17 @@ Environment Variables:
   LICENSE_CHECK_LOG_LEVEL   Log level (debug, info, warn, error)
 
 Examples:
-  # Start with stdio transport (for MCP client integration)
+  # Start with HTTP transport (default, for Dedalus deployment)
   license-check
 
-  # Start with HTTP transport for REST API access
-  license-check --transport http --port 8080
+  # Start on a custom port
+  license-check --port 3000
+
+  # Start with stdio transport (for MCP client integration)
+  license-check --stdio
 
   # Using environment variables
-  LICENSE_CHECK_TRANSPORT=http LICENSE_CHECK_PORT=3001 license-check
+  LICENSE_CHECK_TRANSPORT=stdio license-check
 
 Tools:
   detect_licenses     Detect licenses from dependency metadata or file contents
